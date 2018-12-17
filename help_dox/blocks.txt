@@ -1,0 +1,3 @@
+Block files hold data regarding blocks - obvi
+
+They're formatted the same way as my other var config files (see keybinds-guide.txt)

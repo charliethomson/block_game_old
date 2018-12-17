@@ -1,0 +1,4 @@
+:ITEM_ID=1;
+:ITEM_NAME=dirt;
+:STACKABLE=True;
+:SPRITE_PATH=./resources/sprites/items/dirt.png;

@@ -1,0 +1,21 @@
+# a hash (#) means a comment, a colon (:) means the beginning of a variable
+# declaration, a semicolon (;) means the end of a variable declaration
+
+## two hashes (##) is a multiline comment, two to open, two to close
+when the file gets imported, python tries to convert the data to the type it
+expects, but if you want it to be something specific, you can specify by
+following the instructions below:
+
+if you have an inline comment, it is expected that you put a semicolon after
+the vardec but before the comment
+##
+
+:MAP_NAME=;# This is the name of the file, user defined, else, "World"
+:CREATION_TIME=;# The human readable time the map was created
+:CREATION_DELTA_INIT=;# the time.time() value at the time the save was created,
+                      # used to find the age of the save, don't mess with this
+:MAP={
+    # So this'll be where the data is stored for the positions of the blocks
+    # It's a matrix of integers that correspond to block ids, defined in
+    # resources/blocks and sort-of in src/blocks.py
+};

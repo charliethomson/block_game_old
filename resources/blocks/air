@@ -1,0 +1,6 @@
+:BLOCK_ID=0;
+:BLOCK_NAME=Air;
+:BREAK=-1;
+:DROPS_ITEM=None;
+:SPRITE_PATH=./resources/sprites/blocks/air.png;
+:GRAVITY=False;
