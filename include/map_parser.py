@@ -1,52 +1,40 @@
-def convert_string(string: str):
-    # Integers
+
+def _check_numeric(string):
+    for item in (item.isnumeric() for item in string.split(".")):
+        if not item:
+            return False
+    return True
+
+def _string_to_matrix(string: str):
+    x = []
+    exec(f"x.append({string})")
+    return x[0]
+
+def _convert_string(string: str):
+    convs = {"true": True, "false": False, "none": None}
+    
     if string.isnumeric():
         return int(string)
-    if "." in string and [item.isnumeric() for item in string.split(".")]:
+        
+    elif "." in string and _check_numeric(string):
         return float(string)
 
-    convs = {"true": True, "false": False, "none": None}
-    if string.lower() in list(convs.keys()):
+    elif string.lower() in list(convs.keys()):
         return convs[string.lower()]
+
+    elif "[" in string:
+        return _string_to_matrix(string)
 
     else:
         return string
-
-
-def string_to_matrix(string: str):
-    matrix = []
-
-    current_item, current_array = "", []
-    item, array = False, False
-    for next_index, char in enumerate(string):
-        next_ = next_index + 1 if next_index < len(string) - 1 else None
-        if item:
-            print(char)
-            if char == "[":
-                array = True
-            if char == "]":
-                array = matrix.append(current_array)
-            elif char == ",":
-                if array:
-                    matrix.append(current_array)
-                    array, item = False, False
-                else:
-                    current_array.append(current_item)
-            else:
-                current_item += char
-
-        elif char == "[":
-            item = True
-
-    return matrix
 
 
 def _fix_vars(vars: dict):
     new = {}
     for key in list(vars.keys()):
         value = vars[key]
-        # if "[" in value:
-        #     new[key.upper()] = string_to_matrix(value)
+        # _convert_string sets the types correctly to what they need to be
+        new[key.upper()] = _convert_string(value)
 
 
 def parse_map(map_file: str):
@@ -95,4 +83,3 @@ def parse_map(map_file: str):
         # if we come across a :, start getting the variable name
         elif char == ":":
             variable_name_dec = True
-
