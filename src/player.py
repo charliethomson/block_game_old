@@ -9,6 +9,7 @@ class Player:
         self.window = window
         self.keys = keys
         self.pos = Vector2D(self.window.width // 2, self.window.height // 2)
+        self.globalpos = Vector2D()
         self.vel = Vector2D()
         self.acc = Vector2D()
         self.sprite = Sprite(PLAYER_SPRITE_IMAGE, self.pos.x, self.pos.y)
@@ -29,7 +30,7 @@ class Player:
             self.vel += self.acc
         else:
             self.acc.reset()
-        self.pos += self.vel
+        # self.pos += self.vel
         self.sprite.x, self.sprite.y = self.pos.x, self.pos.y
         print(self.pos, self.vel, self.acc)
 

@@ -17,7 +17,14 @@ class Game:
         self.window = window
         self.keys = keys
         self.mouse_position = Vector2D()
+        self.keybinds = {}
         self.player = Player(window, keys)
+
+    def save_game(self, game_folder_path: str):
+        pass
+    
+    def load_game(self, game_folder_path: str):
+        pass
 
     def on_mouse_motion(self, x, y, dx, dy):
         self.mouse_position = Vector2D(x, y)

@@ -33,8 +33,10 @@ def _fix_vars(vars: dict):
     new = {}
     for key in list(vars.keys()):
         value = vars[key]
-        # _convert_string sets the types correctly to what they need to be
+        # convert_string sets the types correctly to what they need to be
         new[key.upper()] = _convert_string(value)
+
+    return new
 
 
 def parse_map(map_file: str):
@@ -56,6 +58,7 @@ def parse_map(map_file: str):
             if char == "=":
                 variable_name_dec = False
                 variable_val_dec = True
+                continue
             elif char in ("\n", "\t", " "):
                 continue
             else:
@@ -83,3 +86,7 @@ def parse_map(map_file: str):
         # if we come across a :, start getting the variable name
         elif char == ":":
             variable_name_dec = True
+
+    variables = _fix_vars(variables)
+    return variables
+

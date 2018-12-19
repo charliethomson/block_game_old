@@ -83,7 +83,3 @@ def parse_block(file_path: str):
 
     _fix_vars(variables)
     return variables
-
-
-def test():
-    print(parse_block("./resources/blocks/air"))

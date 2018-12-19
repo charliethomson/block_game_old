@@ -9,10 +9,8 @@ class World:
         self.creation_delta = time.time()
 
     def load_map(self, map_file: str):
-        with open(map_file, "r") as file_:
-            map_data = file_.read()
-        
-
+        map_data = parse_map(map_file)
+        print(map_data, "\n", map_data_string)
 
     def save_map(self, map_file: str):
         with open(map_file, "w") as file_:
