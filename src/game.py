@@ -1,5 +1,10 @@
 from src.player import Player
+from src.world import World
 from include.vector2d import Vector2D
+from src.keybinds import KeybindHandler
+from src import DEFAULT_KEYBINDS
+from os import mkdir
+from os.path import exists
 
 
 class Game:
@@ -17,12 +22,30 @@ class Game:
         self.window = window
         self.keys = keys
         self.mouse_position = Vector2D()
-        self.keybinds = {}
+        self.keybinds = KeybindHandler(DEFAULT_KEYBINDS)
         self.player = Player(window, keys)
+        self.world = World()
+
+        self.save_game("./saves/test2")
 
     def save_game(self, game_folder_path: str):
-        pass
-    
+        if not game_folder_path.endswith("/"):
+            game_folder_path += "/"
+
+        if not exists(game_folder_path):
+            mkdir(game_folder_path)
+        
+        self.world.save_map(game_folder_path + "map")
+        self.player.save_game(game_folder_path + "player")
+        self.keybinds.save_to_folder(game_folder_path)
+
+        meta_data = ""
+
+        with open(game_folder_path + "meta", "w") as meta_file:
+            meta_file.write(meta_data)
+        
+
+
     def load_game(self, game_folder_path: str):
         pass
 

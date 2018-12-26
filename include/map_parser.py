@@ -1,9 +1,30 @@
+from os.path import exists
+
+class ParserError(Exception):
+    pass
+
 
 def _check_numeric(string):
     for item in (item.isnumeric() for item in string.split(".")):
         if not item:
             return False
     return True
+
+def _check_vars(vars):
+    reqd_vars = {
+        "MAP_NAME": "World",
+        "CREATION_TIME": '',
+        "CREATION_DELTA_INIT": 1545472736,
+        "MAP": None
+    }
+
+    for var in list(reqd_vars.keys()):
+        # Check if each of the required variables is in the given vars, if 
+        # one's missing, add it w/ the default value
+        if var not in vars:
+            vars[var] = reqd_vars[var]
+
+    return vars
 
 def _string_to_matrix(string: str):
     x = []
@@ -40,6 +61,9 @@ def _fix_vars(vars: dict):
 
 
 def parse_map(map_file: str):
+
+    if not exists(map_file):
+        raise ParserError(f"map file {map_file} does not exist")
 
     # Read the data from the map file
     with open(map_file, "r") as map_:
@@ -88,5 +112,6 @@ def parse_map(map_file: str):
             variable_name_dec = True
 
     variables = _fix_vars(variables)
+    variables = _check_vars(variables)
     return variables
 

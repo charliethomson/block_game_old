@@ -1,5 +1,6 @@
 from include.vector2d import Vector2D
 from pyglet.image import load as load_glImage
+from include.bindings_parser import parse_bindings
 
 
 def _setattribs(image):
@@ -14,3 +15,5 @@ PLAYER_SPRITE_FILE = "./resources/sprites/player.png"
 PLAYER_SPRITE_IMAGE = load_glImage(PLAYER_SPRITE_FILE)
 _setattribs(PLAYER_SPRITE_IMAGE)
 
+
+DEFAULT_KEYBINDS = parse_bindings("./resources/default_keybinds")
