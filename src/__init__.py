@@ -9,6 +9,7 @@ def _setattribs(image):
 
 GRAVITY = Vector2D(0, 0.012)
 
+GAMEDIR = "/run/media/charlie/CTH1/development/python/working_on/block_game/"
 
 PLAYER_SPRITE_FILE = "./resources/sprites/player.png"
 

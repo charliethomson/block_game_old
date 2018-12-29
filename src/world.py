@@ -12,6 +12,18 @@ class World:
         self.creation_time = time.strftime("%a %b %d, %H:%M:%S")
         self.creation_delta = time.time()
 
+    def _get_ids_from_blocks(self, blocks=None):
+        out = []
+        for array in self.blocks:
+            subarray = []
+            for block in array:
+                subarray.append(block.id)
+            out.append(subarray)
+        return out
+
+    def _get_blocks_from_ids(self, ids):
+        pass
+
     def load_map(self, map_file: str):
         map_data = parse_map(map_file)
         print(map_data)
@@ -25,10 +37,18 @@ class World:
 
 
     def save_map(self, map_file: str):
-        map_data = f":MAP_NAME={self.map_name};\n:CREATION_TIME={self.creation_time};\n:CREATION_DELTA_INIT={self.creation_delta};\n:MAP={self.blocks};"
+        map_data = f":MAP_NAME={self.map_name};\
+        \n:CREATION_TIME={self.creation_time};\
+        \n:CREATION_DELTA_INIT={self.creation_delta};\
+        \n:MAP={self.blocks};"
         
         with open(map_file, "w") as file_:
             file_.write(map_data)
+
+    def draw_map(self):
+        for block in self.blocks:
+            block.draw()
+        return
 
     def generate_map(self):
         pass

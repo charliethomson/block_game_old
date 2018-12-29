@@ -1,4 +1,5 @@
 from include.item import Item
+from include.general_parser import parse, _fix_types
 
 
 class Block:
@@ -6,7 +7,7 @@ class Block:
         self,
         id_: int,
         name: str,
-        sprite_path: str,
+        sprite_path: str = None,
         break_rate: int = None,
         item: Item = None,
         gravity: bool = False,
@@ -17,3 +18,26 @@ class Block:
         self.drops_item = item
         self.sprite_path = sprite_path
         self.gravity = gravity
+
+    @classmethod
+    def from_dict(cls, block_data: dict):
+
+        assert isinstance(
+            block_data, dict
+        ), f"Cannot create block object from type {type(block_data)}"
+
+        # print(id_, name, break_rate, item, sprite_path, gravity)
+
+    @classmethod
+    def from_file(cls, file_path: str):
+        reqds = [
+            "BLOCK_ID",
+            "BLOCK_NAME",
+            "BREAK",
+            "DROPS_ITEM",
+            "SPRITE_PATH",
+            "GRAVITY",
+        ]
+
+        defs = [-1, "BLOCK_ID_MISSING", 0, None, None, False]
+        Block.from_dict(parse(file_path, reqds=reqds, defaults=defs))

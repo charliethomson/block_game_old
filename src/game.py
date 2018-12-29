@@ -2,7 +2,7 @@ from src.player import Player
 from src.world import World
 from include.vector2d import Vector2D
 from src.keybinds import KeybindHandler
-from src import DEFAULT_KEYBINDS
+from src import DEFAULT_KEYBINDS, GAMEDIR
 from os import mkdir
 from os.path import exists
 
@@ -26,7 +26,6 @@ class Game:
         self.player = Player(window, keys)
         self.world = World()
 
-        self.save_game("./saves/test2")
 
     def save_game(self, game_folder_path: str):
         if not game_folder_path.endswith("/"):
