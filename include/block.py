@@ -1,5 +1,5 @@
 from include.item import Item
-from include.general_parser import parse, _fix_types
+from include.parser import parse
 
 
 class Block:
@@ -26,7 +26,8 @@ class Block:
             block_data, dict
         ), f"Cannot create block object from type {type(block_data)}"
 
-        # print(id_, name, break_rate, item, sprite_path, gravity)
+        
+
 
     @classmethod
     def from_file(cls, file_path: str):

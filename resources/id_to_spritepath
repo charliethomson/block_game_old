@@ -1,0 +1,5 @@
+:0=./resources/sprites/blocks/air.png;
+:1=./resources/sprites/blocks/stone.png;
+:2=./resources/sprites/blocks/cobblestone.png;
+:3=./resources/sprites/blocks/grass.png;
+:4=./resources/sprites/blocks/dirt.png;

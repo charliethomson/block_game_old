@@ -16,7 +16,7 @@ class ParserUnexpectedCharacterError(ParserError):
     pass
 
 
-class UnfoundKeycodeError(ParserError):
+class UnknownKeycodeError(ParserError):
     pass
 
 
@@ -42,11 +42,11 @@ def _fix_keybinds(vars: dict):
                     f"Command incorrect - command {key} contains bad symbol {char}"
                 )
         if not hasattr(keys, vars[key]):
-            raise UnfoundKeycodeError
+            raise UnknownKeycodeError(f"Keycode {key} not found")
         ## /Error Checking ##
 
         # Getting the keycode from pyglet.window.key, and adding it to the new dictionary
-        new[key.upper()] = getattr(pyglet.window.key, vars[key])
+        new[key.upper()] = getattr(keys, vars[key])
 
     ## Error Checking ##
     for value in list(new.values()):
@@ -98,7 +98,7 @@ def _check_missing_vars(vars: dict, reqds: list, defaults: list):
 
     if reqds:
 
-        if defaults == None:
+        if defaults is None:
             defaults = []
             [defaults.append(None) for _ in range(len(reqds))]
         elif len(defaults) < len(reqds):
@@ -134,10 +134,10 @@ def _string_to_list(string: str) -> list:
     o, c = string.count("["), string.count("]")
     assert o == c, f"open / close bracket count mismatch (open: {o}, close: {c})"
 
-    for index in range(1, len(string) - 1):
-        last, current, next = string[index - 1], string[index], string[index + 1]
+    for index in range(len(string) - 1):
+        current, next = string[index], string[index + 1]
         if current + next == "][":
-            surrounding = string[index - 10 : index + 10]
+            surrounding = string[index - 5 : index + 5]
             raise SyntaxError(f"Missing comma between two brackets {surrounding}")
 
     x = []
@@ -148,11 +148,13 @@ def _string_to_list(string: str) -> list:
 
 
 def parse(
-    user_input: str, reqds: list = None, defaults: list = None, given_data: str = None
+    user_input: str,
+    reqds: list = None,
+    defaults: list = None,
+    given_data: str = None,
+    keybinds: bool = False,
 ):
     """
-    MAIN PARSE FUNCTION
-
     ARGS: 
         `user_input` : String ; The file to be parsed, assumed to be 
                           formatted like: "./path/file", unix-style  
@@ -213,15 +215,19 @@ def parse(
     for char in data:
         if char in ["\n", "\t"]:
             continue
-        if varndec:
-            if char != "=":
-                varn += char
-                continue
-            else:
+        elif varndec:
+            if char == "=":
                 varndec = False
                 varvdec = True
                 continue
-        if varvdec:
+            elif char == ";":
+                raise ParserUnexpectedCharacterError(
+                    "Parser encountered unexpected character `;`, you may have forgotten an equals sign"
+                )
+            else:
+                varn += char
+                continue
+        elif varvdec:
             if char != ";":
                 varv += char
                 continue
@@ -239,4 +245,6 @@ def parse(
             )
 
     vars = _check_missing_vars(vars, reqds, defaults)
+    if keybinds:
+        vars = _fix_keybinds(vars)
     return vars

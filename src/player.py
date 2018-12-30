@@ -1,7 +1,7 @@
 from include.vector2d import Vector2D
 from pyglet.sprite import Sprite
 from pyglet.image import load as load_image
-from src import *
+from src import GRAVITY, PLAYER_DEFAULT_SPRITE_IMAGE
 
 
 class Player:
@@ -13,7 +13,7 @@ class Player:
         self.vel = Vector2D()
         self.acc = Vector2D()
         self.health = 100
-        self.sprite = Sprite(PLAYER_SPRITE_IMAGE, self.pos.x, self.pos.y)
+        self.sprite = self._load_default_sprite()
 
     def __repr__(self):
         return f"""
@@ -23,6 +23,9 @@ Player data:
     vel: {self.vel}
     acc: {self.acc}
     health: {self.health}"""
+
+    def _load_default_sprite(self):
+        return Sprite(PLAYER_DEFAULT_SPRITE_IMAGE, self.pos.x, self.pos.y)
 
     def _terminal_velocity(self):
         if self.vel.y >= 15:
@@ -41,11 +44,24 @@ Player data:
             self.acc.reset()
         # self.pos += self.vel
         self.sprite.x, self.sprite.y = self.pos.x, self.pos.y
-        print(self)
+        # print(self)
 
     def move(self, amount: Vector2D):
         assert isinstance(amount, Vector2D), "amount must be Vector2D"
         self.pos += amount
+        print(f"move {amount}")
+
+    def crouch(self):
+        print("CROUNCH")
+
+    def sprint(self):
+        print("SPRONT")
+
+    def inventory(self):
+        print("HELLO")
+
+    def jump(self):
+        print("SJDAKF")
 
     def draw(self):
         self.sprite.draw()
@@ -57,8 +73,6 @@ Player data:
             file_.write(player_data)
 
     def load_game(self, save_file):
-        with open(save_dile, "r") as file_:
+        with open(save_file, "r") as file_:
             player_data = file_.read()
-
-        
 
