@@ -1,8 +1,4 @@
-_This was originally planned to be a [terraria](https://store.steampowered.com/app/105600/Terraria/) clone,
-but the scope was just too big for me to take by myself with my skills at the time. (I wanted something totally my own, 
-but my skills just weren't there) Although I never finished it, I'm really proud of some of the code here, I hope to revisit
-the idea eventually. As mentioned [here](), I adapted a controls system I used with that project (that never got committed)
-on this project. It's probably one of the things I've made that I like the most. This should be the last commit to this repo_ <3
+_This was originally planned to be a [terraria](https://store.steampowered.com/app/105600/Terraria/) clone, but the scope was just too big for me to take by myself with my skills at the time. (I wanted something totally my own, but my skills just weren't there) Although I never finished it, I'm really proud of some of the code here, I hope to revisit the idea eventually. As mentioned [here](https://github.com/charliethomson/top_down), I adapted a controls system I used with that project (that never got committed) on this project. It's probably one of the things I've made that I like the most. This should be the last commit to this repo_ <3 
 
 # _Block Game_
 
